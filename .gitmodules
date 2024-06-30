@@ -1,0 +1,3 @@
+[submodule "fesdr-examples-vol3"]
+	path = fesdr-examples-vol3
+	url = https://github.com/paulgclark/fesdr-examples-vol3.git
