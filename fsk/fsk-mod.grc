@@ -11,7 +11,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: pskmod
+    id: fskmod
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: Not titled yet
+    title: FSK Mod
     window_size: (1000,1000)
   states:
     bus_sink: false
@@ -93,20 +93,20 @@ blocks:
     coordinate: [544, 24.0]
     rotation: 0
     state: enabled
-- name: analog_phase_modulator_fc_0
-  id: analog_phase_modulator_fc
+- name: analog_frequency_modulator_fc_0
+  id: analog_frequency_modulator_fc
   parameters:
     affinity: ''
     alias: ''
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    sensitivity: math.pi/2
+    sensitivity: (2 * math.pi * (fsk_deviation_hz / 2))/samp_rate
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [336, 336.0]
+    coordinate: [296, 344.0]
     rotation: 0
     state: true
 - name: analog_sig_source_x_0
@@ -440,11 +440,11 @@ blocks:
     state: true
 
 connections:
-- [analog_phase_modulator_fc_0, '0', blocks_multiply_xx_0, '0']
+- [analog_frequency_modulator_fc_0, '0', blocks_multiply_xx_0, '0']
 - [analog_sig_source_x_0, '0', blocks_throttle2_0, '0']
 - [blocks_multiply_xx_0, '0', qtgui_time_sink_x_0_0, '0']
 - [blocks_multiply_xx_0, '0', zeromq_pub_sink_0, '0']
-- [blocks_repeat_0, '0', analog_phase_modulator_fc_0, '0']
+- [blocks_repeat_0, '0', analog_frequency_modulator_fc_0, '0']
 - [blocks_repeat_0, '0', qtgui_time_sink_x_0, '0']
 - [blocks_throttle2_0, '0', blocks_multiply_xx_0, '1']
 - [blocks_vector_source_x_0, '0', blocks_repeat_0, '0']
